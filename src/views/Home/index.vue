@@ -1,5 +1,6 @@
 <template>
-  <div>
-    <h1>home页</h1>
-  </div>
+    我是home页面
+    <!-- <div style="height: 1200px;"></div> -->
+     <div style="height: 1200px;"></div>
+  
 </template>
