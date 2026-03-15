@@ -1,37 +1,36 @@
 <script setup>
-import { getCategoryAPI } from '@/apis/category'
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { getBannerAPI } from '@/apis/home'
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { useBanner } from '@/views/Category/composables/useBanner'
+import { uesCategory } from '@/views/Category/composables/useCategory'
 
-//获取数据
-const categoryData = ref({})
-const route = useRoute()
-const getCategory = async (id=route.params.id) => {
-  const res = await getCategoryAPI(id)
-  categoryData.value = res.result
-}
-onMounted(() => getCategory())
+const {bannerList}=useBanner()
+const {categoryData}=uesCategory()
+// //获取数据
+// const categoryData = ref({})
+// const route = useRoute()
+// const getCategory = async (id=route.params.id) => {
+//   const res = await getCategoryAPI(id)
+//   categoryData.value = res.result
+// }
+// onMounted(() => getCategory())
 //目标：根据路由参数获取分类数据
-onBeforeRouteUpdate((to)=>{
-  console.log('路由变化')
-  console.log(to)
-  //纯在问题：使用最新路由
-  getCategory(to.params.id)
-})
-//banner
-const bannerlist = ref([])
-const getBanner = async () => {
-  const res = await getBannerAPI({
-    distributionSite: '2'
-  })
-  console.log(res)
-  bannerlist.value = res.result
-}
-onMounted(() => getBanner())
-//目标：根据路由参数获取分类数据
+// onBeforeRouteUpdate((to)=>{
+//   console.log('路由变化')
+//   console.log(to)
+//   //纯在问题：使用最新路由
+//   getCategory(to.params.id)
+// })
+
+// //banner
+// const bannerlist = ref([])
+// const getBanner = async () => {
+//   const res = await getBannerAPI({
+//     distributionSite: '2'
+//   })
+//   console.log(res)
+//   bannerlist.value = res.result
+// }
+// onMounted(() => getBanner())
 
 </script>
 
@@ -48,7 +47,7 @@ onMounted(() => getBanner())
       <!--轮播图-->
       <div class="home-banner">
         <el-carousel height="500px">
-          <el-carousel-item v-for="item in bannerlist" :key="item.id">
+          <el-carousel-item v-for="item in bannerList" :key="item.id">
             <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
