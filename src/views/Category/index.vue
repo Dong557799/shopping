@@ -5,33 +5,6 @@ import { uesCategory } from '@/views/Category/composables/useCategory'
 
 const {bannerList}=useBanner()
 const {categoryData}=uesCategory()
-// //获取数据
-// const categoryData = ref({})
-// const route = useRoute()
-// const getCategory = async (id=route.params.id) => {
-//   const res = await getCategoryAPI(id)
-//   categoryData.value = res.result
-// }
-// onMounted(() => getCategory())
-//目标：根据路由参数获取分类数据
-// onBeforeRouteUpdate((to)=>{
-//   console.log('路由变化')
-//   console.log(to)
-//   //纯在问题：使用最新路由
-//   getCategory(to.params.id)
-// })
-
-// //banner
-// const bannerlist = ref([])
-// const getBanner = async () => {
-//   const res = await getBannerAPI({
-//     distributionSite: '2'
-//   })
-//   console.log(res)
-//   bannerlist.value = res.result
-// }
-// onMounted(() => getBanner())
-
 </script>
 
 <template>
@@ -56,7 +29,7 @@ const {categoryData}=uesCategory()
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in categoryData.children" :key="i.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${i.id}`">
               <img :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>
