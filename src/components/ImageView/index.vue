@@ -2,6 +2,14 @@
 import {ref} from 'vue'
 import {useMouseInElement} from '@vueuse/core'
 import {watch} from 'vue'
+import {defineProps} from 'vue'
+
+defineProps({
+  imageList:{
+    type:Array,
+    default:()=>[]
+  }
+})
 // 图片列表
 const imageList = [
   "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
@@ -73,7 +81,7 @@ watch([elementX,elementY],()=>{
     <!-- 放大镜大图 -->
     <div class="large" :style="[
       {
-        backgroundImage: `url(${imageList[0]})`,
+        backgroundImage: `url(${imageList[activeIndex]})`,
         backgroundPositionX: `${positionX}px`,
         backgroundPositionY: `${positionY}px`,
       },
