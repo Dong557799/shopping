@@ -1,6 +1,12 @@
 <script setup>
-
+import {loginAPI} from '@/apis/user'
 import {ref} from 'vue'
+
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+
+import {useRouter} from 'vue-router'
+
 //表单校验账号密码
 //1.
 const form=ref({
@@ -40,14 +46,22 @@ agree:[{
 }]
 }
 //统一校验
+const router=useRouter()
 const formRef=ref(null)
 const dologin=()=>{
+  const {account,password}=form.value
   //调用实例方法
   formRef.value.validate((valid)=>{
     //valid所有表单通过校验
     console.log(valid)
     if(valid){
       //to do login
+      const res=loginAPI({account,password})
+      console.log(res)
+      //提示用户
+      ElMessage({type:'success',message:'登陆成功'})
+      //跳转首页
+      router.replace({path:'/'})
     }
   })
 }
