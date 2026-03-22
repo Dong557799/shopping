@@ -1,11 +1,15 @@
 <script setup>
-import {loginAPI} from '@/apis/user'
+// import {loginAPI} from '@/apis/user'
 import {ref} from 'vue'
 
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 
 import {useRouter} from 'vue-router'
+
+import {useUserStore} from "@/stores/user"
+
+const userStore=useUserStore()
 
 //表单校验账号密码
 //1.
@@ -51,13 +55,13 @@ const formRef=ref(null)
 const dologin=()=>{
   const {account,password}=form.value
   //调用实例方法
-  formRef.value.validate((valid)=>{
+  formRef.value.validate(async(valid)=>{
     //valid所有表单通过校验
     console.log(valid)
     if(valid){
       //to do login
-      const res=loginAPI({account,password})
-      console.log(res)
+      await userStore.getUserInfo({account,password})
+      
       //提示用户
       ElMessage({type:'success',message:'登陆成功'})
       //跳转首页
