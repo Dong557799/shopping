@@ -1,7 +1,14 @@
 <script setup>
 // 这里可以写业务逻辑
 import {useUserStore} from '@/stores/user'
+import {useRouter} from 'vue-router'
 const userStore=useUserStore()
+const router=useRouter()
+const confirm=()=>{
+  console.log('退出登录')
+  userStore.clearUserInfo()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -15,7 +22,7 @@ const userStore=useUserStore()
             </a>
           </li>
           <li>
-            <el-popconfirm 
+            <el-popconfirm  @confirm="confirm"
               title="确认退出吗?" 
               confirm-button-text="确认" 
               cancel-button-text="取消"
