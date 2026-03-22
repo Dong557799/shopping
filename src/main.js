@@ -2,7 +2,6 @@ import './assets/main.css'
 // import { useIntersectionObserver } from '@vueuse/core'
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
@@ -10,30 +9,23 @@ import router from './router'
 import '@/styles/common.scss'
 import {lazyPlugin} from './directives'
 import {componentPlugin} from './components'
+
+//pinia持久化
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
 //测试接口函数
 import { getCategory } from '@/apis/testAPI'
 getCategory().then(res => {
     console.log(res)
 })
-const app = createApp(App)
 
-app.use(createPinia())
+const app = createApp(App)
+const pinia=createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 app.use(router)
 app.use(lazyPlugin)
 app.use(componentPlugin)
 app.mount('#app')
-// //定义全局el指令绑定元素，binding.value指令等于号后面绑定的表达式的值 图片url
-// app.directive('img-lazy',{
-//     mounted(el,binding){
-//         console.log(el,binding.value)
-//         useIntersectionObserver(el,
-//             ([{isIntersecting}])=>{
-//                 console.log(isIntersecting)
-//                 if(isIntersecting){
-//                     //进入视口
-//                     el.src=binding.value
-//                 }
-//             }
-//         )
-//     }
-// })
+
