@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia'
 import {ref,computed} from 'vue'
 
+
 export const useCartStore=defineStore('cart',()=>{
     const cartList=ref([])
     const addCart=(goods)=>{
@@ -17,7 +18,11 @@ export const useCartStore=defineStore('cart',()=>{
         const idx=cartList.value.findIndex((item)=>skuId===item.skuId)
         cartList.value.splice(idx,1)
     }
-
+    const singleCheck=(skuId,selected)=>{
+        //通过skuId找到要操作的商品
+        const item=cartList.value.find((item)=>item.skuId===skuId)
+        item.selected=selected
+    }
     //计算属性
     const allCount=computed(()=>cartList.value.reduce((a,c)=>a+c.count,0))
     const allPrice=computed(()=>cartList.value.reduce((a,c)=>a+c.count*c.price,0))
@@ -26,7 +31,8 @@ export const useCartStore=defineStore('cart',()=>{
         addCart,
         delCart,
         allCount,
-        allPrice
+        allPrice,
+        singleCheck
     }
 },{
     persist:true,
