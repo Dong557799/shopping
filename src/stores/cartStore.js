@@ -13,6 +13,7 @@ export const useCartStore=defineStore('cart',()=>{
     const userStore=useUserStore()
     const isLogin=computed(()=>userStore.userInfo.token)
     const cartList=ref([])
+    //定义action
     const addCart=async (goods)=>{
         const {skuId,count}=goods
         if(isLogin.value){
@@ -28,6 +29,7 @@ export const useCartStore=defineStore('cart',()=>{
             }
         }
     }
+    //删除购物车商品
     const delCart=async (skuId)=>{
         //找到要删除的下标值splice/过滤filter
         if(isLogin.value){
@@ -38,7 +40,10 @@ export const useCartStore=defineStore('cart',()=>{
             cartList.value.splice(idx,1)
         }
     }
-
+    //清除购物车当退出登录
+    const clearCart=()=>{
+        cartList.value=[]
+    }
 
     const singleCheck=(skuId,selected)=>{
         //通过skuId找到要操作的商品
@@ -60,6 +65,7 @@ export const useCartStore=defineStore('cart',()=>{
     //是否全选
     const isAll=computed(()=>cartList.value.every((item)=>item.selected))
     return{
+        clearCart,
         cartList,
         addCart,
         delCart,
