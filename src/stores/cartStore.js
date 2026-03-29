@@ -75,7 +75,8 @@ export const useCartStore=defineStore('cart',()=>{
         singleCheck,
         allCheck,
         selectCount,
-        selectPrice
+        selectPrice,
+        updateNewList
     }
 },{
     persist:true,
