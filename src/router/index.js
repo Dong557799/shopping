@@ -15,6 +15,9 @@ import Pay from '@/views/Pay/index.vue'
 
 import PayBack from '@/views/Pay/PayBack.vue'
 
+import Member from '@/views/Member/index.vue'
+import UserOrder from '@/views/Member/components/UserOrder.vue'
+import UserInfo from '@/views/Member/components/UserInfo.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   //path与component对应关系
@@ -54,6 +57,20 @@ const router = createRouter({
         {
           path:'paycallback',
           component:PayBack
+        },
+        {
+          path:'member',
+          component: Member,
+          children:[
+            {
+              path:'order',
+              component:UserOrder
+            },
+            {
+              path:'user',
+              component:UserInfo
+            }
+          ]
         }
 
       ]
