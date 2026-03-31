@@ -63,12 +63,12 @@ const router = createRouter({
           component: Member,
           children:[
             {
-              path:'order',
-              component:UserOrder
+              path:'',
+              component:UserInfo
             },
             {
-              path:'user',
-              component:UserInfo
+              path:'order',
+              component:UserOrder
             }
           ]
         }
